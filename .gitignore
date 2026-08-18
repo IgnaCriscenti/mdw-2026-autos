@@ -1,0 +1,25 @@
+node_modules/
+
+# Variables de entorno y secretos (¡NUNCA los subas a GitHub!)
+.env
+.env.local
+.env.*.local
+
+# Archivos de compilación de TypeScript / JavaScript
+dist/
+build/
+*.js.map
+
+# Registros de errores y logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+
+# Archivos generados por el sistema operativo
+.DS_Store
+Thumbs.db
+
+# Configuración local de VS Code / editores
+.vscode/
+.idea/
