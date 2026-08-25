@@ -7,13 +7,19 @@ import {
   updateAuto,
   deleteAuto,
 } from "../controllers/autos.controller.js";
+import { validateBody } from "../middlewares/validate.js";
+import {
+  createAutoSchema,
+  listAutosSchema,
+  updateAutoSchema,
+} from "../schemas/auto.schema.js";
 
 const router = Router();
 
-router.query!("/", listAutos);
+router.query!("/", validateBody(listAutosSchema), listAutos);
 router.get("/:id", getAutoById);
-router.post("/", createAuto);
-router.put("/:id", updateAuto);
+router.post("/", validateBody(createAutoSchema), createAuto);
+router.put("/:id", validateBody(updateAutoSchema), updateAuto);
 router.delete("/:id", deleteAuto);
 
 export default router;
