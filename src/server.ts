@@ -9,7 +9,14 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+// CORS: sólo el front declarado en CORS_ORIGIN puede llamar a esta API desde el navegador.
+// credentials habilita el envío de cookies, que hace falta a partir de la clase de auth.
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN ?? "http://localhost:5173",
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 app.get("/", (_req, res) => {
