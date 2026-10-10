@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import v1Router from "./routes/index.js";
 import { connectMongoDB } from "./config/db.js";
@@ -10,14 +11,17 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // CORS: sólo el front declarado en CORS_ORIGIN puede llamar a esta API desde el navegador.
-// credentials habilita el envío de cookies, que hace falta a partir de la clase de auth.
+// credentials habilita el envío de las cookies httpOnly de sesión (accessToken / refreshToken).
+// QUERY no está en los métodos por defecto de cors: sin esto el preflight de QUERY /autos falla.
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN ?? "http://localhost:5173",
     credentials: true,
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE", "QUERY"],
   })
 );
 app.use(express.json());
+app.use(cookieParser()); // deja las cookies en req.cookies para authMiddleware
 
 app.get("/", (_req, res) => {
   res.send("¡Servidor funcionando!");
