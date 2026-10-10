@@ -1,3 +1,5 @@
+import { setServers } from "node:dns";
+setServers(["8.8.8.8", "1.1.1.1"]);
 import mongoose from "mongoose";
 
 function getMongoUri(): string {
